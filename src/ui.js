@@ -1,6 +1,7 @@
 /**
  * @module UI - UI injected to Google Translate
  */
+
 var UI = (function (ui) {
 
   ui.createButton = function (handler) {

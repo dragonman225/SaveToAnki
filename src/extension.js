@@ -2,12 +2,16 @@
  * SaveToAnki by dragonman225
  * v0.1.0: May.05, 2019: Initial version.
  * v0.2.0: May.05, 2019: Use custom model, support "translate.google.com.tw", better UI.
+ * v0.2.1: May.05, 2019: Improve code style. Two types of card.
  */
+
 "use strict";
 
-var config = {
-  defaultDeckName: "GoogleTranslate",
-}
+/**
+ * Define external modules
+ */
+const config = Config;
+const ui = UI;
 
 /**
  * Make a request to AnkiConnect
@@ -69,107 +73,16 @@ async function createDeck(name = config.defaultDeckName) {
   console.log(`Deck created. ID: ${result}`);
 }
 
-/* Not working, action documented but api reports unsupported */
 /**
  * Create a new model (note type)
  * @param {string} name - The name of the model
  */
-async function createNewModel(name = config.defaultDeckName) {
+async function createModel(name = config.defaultDeckName) {
   const params = {
     modelName: name,
-    inOrderFields: ["Input", "Output", "Definition", "Example"],
-    css:
-      '.card {\
-      font-family: arial;\
-      color: white;\
-      text-align: center;\
-      margin: 10px 50px;\
-      background-color: #333;\
-     }\
-     \
-     #title-front, #title-back {\
-      font-size: 24px;\
-     }\
-     \
-     #def {\
-      text-align: left;\
-      font-size: 16px;\
-      line-height: 1.4;\
-     }\
-     \
-     #example {\
-      margin: 30px;\
-      font-size: 20px;\
-     }\
-     \
-     .gt-cd-pos {\
-      color: #4285f4;\
-      text-transform: capitalize;\
-      font-weight: 500;\
-      margin: 5px 0 2px 8px;\
-      padding-bottom: 10px;\
-     }\
-     \
-     .gt-def-list {\
-      margin-left: 56px;\
-      margin-right: 20px;\
-     }\
-     \
-     .gt-def-info {\
-      margin-bottom: 12px;\
-     }\
-     \
-     .gt-def-example {\
-      margin-top: 4px;\
-      color: #bbb;\
-     }\
-     \
-     .gt-def-num {\
-      position: absolute;\
-      left: 66px;\
-      border: 1px solid white;\
-      border-radius: 100%;\
-      width: 18px;\
-      height: 18px;\
-      line-height: 18px;\
-      font-size: 14px;\
-      text-align: center;\
-     }\
-     \
-     .gt-def-synonym {\
-      margin-top: 2px;\
-      color: #bbb;\
-      overflow: hidden;\
-      text-overflow: ellipsis;\
-     }\
-     \
-     .gt-def-synonym-title {\
-      display: block;\
-      font-style: normal;\
-      text-transform: capitalize;\
-      margin: 16px 0 10px;\
-     }\
-     \
-     .gt-cd-cl {\
-      font-weight: 400;\
-      border: 1px solid #888;\
-      border-radius: 32px;\
-      margin: 0 4px 6px 0;\
-      padding: 0 8px;\
-      display: inline-block;\
-      height: 24px;\
-      line-height: 24px;\
-     }\
-     ',
-    cardTemplates: [
-      {
-        "Front": '<div id="title-front"><h1>{{Input}}</h1></div>',
-        "Back":
-          '<div id="title-back"><h1>{{Output}}</h1></div>' +
-          '<div id="def">{{Definition}}</div>' +
-          '<div id="example">{{Example}}</div>'
-      }
-    ]
+    inOrderFields: config.modelFields,
+    css: config.cardStyle,
+    cardTemplates: config.cardTemplates
   }
   const result = await invoke('createModel', 6, params);
   console.log(`Model created. ID: ${result.id}`);
@@ -225,7 +138,7 @@ function addToAnkiBtnHandler() {
  */
 function initUI() {
   const injectRoot = document.querySelectorAll("div.input-button-container > div.tlid-input-button-container")[0];
-  const button = UI.createButton(addToAnkiBtnHandler);
+  const button = ui.createButton(addToAnkiBtnHandler);
   injectRoot.appendChild(button);
 }
 
@@ -240,9 +153,9 @@ async function main() {
   if (deckReady) {
     console.log("Deck ready");
   } else {
-    console.log(`Deck not ready. Let's create one called "${config.defaultDeckName}".`);
+    console.log(`Deck not ready. Let me create one called "${config.defaultDeckName}".`);
     createDeck();
-    createNewModel();
+    createModel();
   }
 
   let isGoogleTranslate = window.location.href.indexOf("translate.google.com") !== -1;

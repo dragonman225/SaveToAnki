@@ -9,6 +9,7 @@
                 "<all_urls>"
             ],
             "js": [
+                "src/config.js",
                 "src/ui.js",
                 "src/extension.js"
             ]
