@@ -1,21 +1,29 @@
 {
-    "name": "SaveToAnki",
-    "description": "Save Google translate results to Anki via AnkiConnect.",
-    "version": "0.2.0",
-    "manifest_version": 2,
-    "content_scripts": [
-        {
-            "matches": [
-                "<all_urls>"
-            ],
-            "js": [
-                "src/config.js",
-                "src/ui.js",
-                "src/extension.js"
-            ]
-        }
-    ],
-    "permissions": [
-        "http://127.0.0.1/"
+  "name": "SaveToAnki",
+  "description": "Save Google translate results to Anki via AnkiConnect.",
+  "version": "0.3.0",
+  "manifest_version": 2,
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "src/config.js",
+        "src/ui.js",
+        "src/extension.js"
+      ]
+    }
+  ],
+  "background": {
+    "scripts": [
+      "src/config.js",
+      "src/background.js"
     ]
+  },
+  "permissions": [
+    "contextMenus",
+    "tabs",
+    "http://127.0.0.1/"
+  ]
 }

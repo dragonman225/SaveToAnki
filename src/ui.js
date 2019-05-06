@@ -1,9 +1,13 @@
 /**
- * @module UI - UI injected to Google Translate
+ * @module UI - UI injected to Google Translate webpage.
  */
 
 var UI = (function (ui) {
 
+  /**
+   * Create an "Add To Anki" button element.
+   * @param {function} handler - Function to handle the button click.
+   */
   ui.createButton = function (handler) {
     let btn = document.createElement('div');
     let textWrap = document.createElement('div');
@@ -20,4 +24,6 @@ var UI = (function (ui) {
   }
 
   return ui;
+
 }(UI || {}));
+

@@ -3,6 +3,8 @@
  */
 
 const Config = {
+  sourceLang: "auto",
+  destinationLang: "zh-TW",
   defaultDeckName: "GoogleTranslate",
   modelFields: ["Input", "Output", "Definition", "Example"],
   cardTemplates: [
@@ -102,5 +104,14 @@ const Config = {
     display: inline-block;\
     height: 24px;\
     line-height: 24px;\
+   }\
+   .gt-def-synonym {\
+    transition: max-height 0.3s ease-in-out 0.15s;\
+    max-height: 45px;\
+   }\
+   \
+   .gt-def-synonym:hover {\
+    transition: max-height 0.3s ease-in-out 0.15s;\
+    max-height: 500px;\
    }'
 }

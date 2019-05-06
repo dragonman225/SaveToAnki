@@ -6,7 +6,12 @@
 
 * When URL contains `translate.google.com`, a button "Add to Anki" appears on Google Translate's toolbar.
   * Currently only `translate.google.com` and `translate.google.com.tw` are tested.
-  
+
+### Permissions
+
+* `contextMenus`: Add "Look up in Google Translate" item in right-click menu when text selected.
+* `tabs`: Open Google Translate URL in a new tab.
+
 ### Installation
 
 1. Clone this repository, or download as zip and extract.

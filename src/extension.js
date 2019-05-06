@@ -3,6 +3,7 @@
  * v0.1.0: May.05, 2019: Initial version.
  * v0.2.0: May.05, 2019: Use custom model, support "translate.google.com.tw", better UI.
  * v0.2.1: May.05, 2019: Improve code style. Two types of card.
+ * v0.3.0: May.05, 2019: New feature "Look up in Google Translate". Hover to show synonyms.
  */
 
 "use strict";
@@ -149,6 +150,7 @@ async function main() {
 
   console.log("SaveToAnki is running on " + window.location);
 
+  /* First run preparations */
   let deckReady = await targetDeckExists();
   if (deckReady) {
     console.log("Deck ready");
@@ -158,11 +160,13 @@ async function main() {
     createModel();
   }
 
+  /* Only on Google Translate webpage */
   let isGoogleTranslate = window.location.href.indexOf("translate.google.com") !== -1;
   if (isGoogleTranslate) {
     console.log("This is Google Translate! Let me inject the UI.");
     initUI();
   }
+
 }
 
 try {
