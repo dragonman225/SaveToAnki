@@ -1,9 +1,5 @@
 /** 
  * SaveToAnki by dragonman225
- * v0.1.0: May.05, 2019: Initial version.
- * v0.2.0: May.05, 2019: Use custom model, support "translate.google.com.tw", better UI.
- * v0.2.1: May.05, 2019: Improve code style. Two types of card.
- * v0.3.0: May.05, 2019: New feature "Look up in Google Translate". Hover to show synonyms.
  */
 
 "use strict";
@@ -19,7 +15,7 @@ const ui = UI;
  * @param {string} action - API action supported by AnkiConnect
  * @param {number} version - API version
  * @param {object} params - Payload to the API
- * @returns {Promise}
+ * @returns {Promise} - Response of the request.
  */
 function invoke(action, version, params = {}) {
   return new Promise((resolve, reject) => {
@@ -144,6 +140,26 @@ function initUI() {
 }
 
 /**
+ * Invoke "lookUpGoogleTranslate" with keyboard.
+ * @param {Event} e 
+ */
+function onKeyDown(e) {
+  if (config.shortcutEnabled &&
+    (e.keyCode === config.activateKey || e.charCode === config.activateKey)) {
+    const text = window.getSelection().toString();
+    if (text.length > 0) {
+      const request = {
+        action: 'lookUpGoogleTranslate',
+        params: {
+          string: text
+        }
+      };
+      chrome.runtime.sendMessage(request);
+    }
+  }
+}
+
+/**
  * Main program
  */
 async function main() {
@@ -166,6 +182,9 @@ async function main() {
     console.log("This is Google Translate! Let me inject the UI.");
     initUI();
   }
+
+  /* On all sites */
+  window.addEventListener('keydown', e => onKeyDown(e));
 
 }
 

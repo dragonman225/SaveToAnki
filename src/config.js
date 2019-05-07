@@ -3,6 +3,8 @@
  */
 
 const Config = {
+  shortcutEnabled: true,
+  activateKey: 16,
   sourceLang: "auto",
   destinationLang: "zh-TW",
   defaultDeckName: "GoogleTranslate",
