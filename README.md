@@ -7,6 +7,7 @@
 * When URL contains `translate.google.com`, a button "Add to Anki" appears on Google Translate's toolbar.
   * Currently only `translate.google.com` and `translate.google.com.tw` are tested.
 * On all sites, select some text, then press `Shift` key or right-click and choose "Look up in Google Translate" to look up in Google Translate.
+* To disable synonym, open `src/config.js`, change `synonymEnabled: true` to `synonymEnabled: false`. Then, delete old deck and note type, and reload the extension.
 
 ### Known Bugs
 
@@ -19,6 +20,7 @@
 * v0.2.1: May.05, 2019: Improve code style. Two types of card.
 * v0.3.0: May.06, 2019: New feature "Look up in Google Translate". Hover to show synonyms.
 * v0.3.1: May.07, 2019: Use keyboard to invoke Translate. Invocations reuse previous Translate tab.
+* v0.3.2: May.08, 2019: Add pronunciation. Enhance card template and style for mobile devices.
 
 ### Permissions
 

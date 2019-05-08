@@ -8,19 +8,20 @@ const Config = {
   sourceLang: "auto",
   destinationLang: "zh-TW",
   defaultDeckName: "GoogleTranslate",
-  modelFields: ["Input", "Output", "Definition", "Example"],
+  modelFields: ["Input", "Output", "Pronunciation", "Definition", "Example"],
+  synonymEnabled: true,
   cardTemplates: [
     {
-      "Front": '<div id="title-front"><h1>{{Input}}</h1></div>',
+      "Front":
+        '<div>' +
+        '<p><span class="title">{{Input}}</span></p>' +
+        '<p><span class="sub-title">{{Pronunciation}}</span></p>' +
+        '</div>',
       "Back":
-        '<div id="title-back"><h1>{{Output}}</h1></div>' +
-        '<div id="def">{{Definition}}</div>' +
-        '<div id="example">{{Example}}</div>'
-    },
-    {
-      "Front": '<div id="title-front"><h1>{{Output}}</h1></div>',
-      "Back":
-        '<div id="title-back"><h1>{{Input}}</h1></div>' +
+        '<div>' +
+        '<p><span class="title">{{Input}}</span><span class="sub-title"> / {{Output}}</span></p>' +
+        '<p><span class="sub-title">{{Pronunciation}}</span></p>' +
+        '</div>' +
         '<div id="def">{{Definition}}</div>' +
         '<div id="example">{{Example}}</div>'
     }
@@ -30,12 +31,16 @@ const Config = {
     font-family: arial;\
     color: white;\
     text-align: center;\
-    margin: 10px 50px;\
+    margin: 20px 35px;\
     background-color: #333;\
    }\
    \
-   #title-front, #title-back {\
-    font-size: 24px;\
+   .title {\
+    font-size: 44px;\
+    font-weight: bold;\
+   }\
+   .sub-title {\
+    font-size: 22px;\
    }\
    \
    #def {\
@@ -45,7 +50,7 @@ const Config = {
    }\
    \
    #example {\
-    margin: 30px;\
+    margin: 30px 10px;\
     font-size: 20px;\
    }\
    \
@@ -53,13 +58,13 @@ const Config = {
     color: #4285f4;\
     text-transform: capitalize;\
     font-weight: 500;\
-    margin: 5px 0 2px 8px;\
+    margin: 5px 0 2px 0;\
     padding-bottom: 10px;\
    }\
    \
    .gt-def-list {\
-    margin-left: 56px;\
-    margin-right: 20px;\
+    margin-left: 50px;\
+    margin-right: 0;\
    }\
    \
    .gt-def-info {\
@@ -73,7 +78,7 @@ const Config = {
    \
    .gt-def-num {\
     position: absolute;\
-    left: 66px;\
+    left: 45px;\
     border: 1px solid white;\
     border-radius: 100%;\
     width: 18px;\
@@ -115,5 +120,9 @@ const Config = {
    .gt-def-synonym:hover {\
     transition: max-height 0.3s ease-in-out 0.15s;\
     max-height: 500px;\
-   }'
+   }',
+  cardStyleSynonymOff:
+    '.gt-def-synonym {\
+    display:none;\
+   }',
 }

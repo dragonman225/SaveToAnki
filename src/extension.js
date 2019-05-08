@@ -75,10 +75,13 @@ async function createDeck(name = config.defaultDeckName) {
  * @param {string} name - The name of the model
  */
 async function createModel(name = config.defaultDeckName) {
+  const synonymEnabled = config.synonymEnabled;
+  const cardStyle = config.cardStyle;
+  const cardStyleSynonymOff = config.cardStyleSynonymOff;
   const params = {
     modelName: name,
     inOrderFields: config.modelFields,
-    css: config.cardStyle,
+    css: synonymEnabled ? cardStyle : cardStyle + cardStyleSynonymOff,
     cardTemplates: config.cardTemplates
   }
   const result = await invoke('createModel', 6, params);
@@ -89,11 +92,12 @@ async function createModel(name = config.defaultDeckName) {
  * Add a note to a deck
  * @param {string} input - Input word
  * @param {string} output - Output word
+ * @param {string} pron - Pronunciation of the input word
  * @param {string} def - Definition of the input word
  * @param {string} ex - Example sentence of the input word
  * @param {string} name - The name of a deck
  */
-async function addNote(input, output, def, ex, name = config.defaultDeckName) {
+async function addNote(input, output, pron, def, ex, name = config.defaultDeckName) {
   const params = {
     note: {
       deckName: name,
@@ -101,6 +105,7 @@ async function addNote(input, output, def, ex, name = config.defaultDeckName) {
       fields: {
         "Input": input,
         "Output": output,
+        "Pronunciation": pron,
         "Definition": def,
         "Example": ex
       },
@@ -120,6 +125,7 @@ async function addNote(input, output, def, ex, name = config.defaultDeckName) {
 function addToAnkiBtnHandler() {
   const wordIn = document.querySelectorAll("#input-wrap > div.text-dummy")[0].textContent;
   const wordOut = document.querySelectorAll("div.frame > div.page.tlid-homepage.homepage.translate-text > div.homepage-content-wrap > div.tlid-source-target.main-header > div.source-target-row > div.tlid-results-container.results-container > div.tlid-result.result-dict-wrapper > div.result.tlid-copy-target > div.text-wrap.tlid-copy-target > div > span.tlid-translation.translation > span")[0].textContent;
+  const pronunciation = document.querySelectorAll("div.frame > div.page.tlid-homepage.homepage.translate-text > div.homepage-content-wrap > div.tlid-source-target.main-header > div.source-target-row > div.tlid-input.input.has-transliteration > div.source-wrap > div > div > div.tlid-source-transliteration-container.source-transliteration-container.transliteration-container > div.tlid-transliteration-content.transliteration-content.full")[0].textContent;
   const _definition = document.querySelectorAll("div.frame > div.page.tlid-homepage.homepage.translate-text > div.homepage-content-wrap > div.tlid-result-view.cllist > div.gt-lc.gt-lc-mobile > div.gt-cc > div.gt-cc-r > div > div.gt-cd.gt-cd-mmd > div.gt-cd-c")[0];
   const _example = document.querySelectorAll("div.frame > div.page.tlid-homepage.homepage.translate-text > div.homepage-content-wrap > div.tlid-result-view.cllist > div.gt-lc.gt-lc-mobile > div.gt-cc > div.gt-cc-r > div > div.gt-cd.gt-cd-mex > div.gt-cd-c > div.gt-ex-info > div.gt-ex-top > div")[0];
   const definition = _definition ? _definition.innerHTML : "No Definition";
@@ -127,7 +133,7 @@ function addToAnkiBtnHandler() {
   console.log(`Got word "${wordIn}" -> "${wordOut}"`);
   console.log(`Got def ${definition}`);
   console.log(`Got example ${example}`);
-  addNote(wordIn, wordOut, definition, example);
+  addNote(wordIn, wordOut, pronunciation, definition, example);
 }
 
 /**

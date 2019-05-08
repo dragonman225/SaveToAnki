@@ -1,7 +1,7 @@
 {
   "name": "SaveToAnki",
   "description": "Save Google translate results to Anki via AnkiConnect.",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "manifest_version": 2,
   "content_scripts": [
     {
