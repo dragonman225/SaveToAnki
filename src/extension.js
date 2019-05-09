@@ -112,7 +112,14 @@ async function addNote(input, output, pron, def, ex, name = config.defaultDeckNa
       options: {
         allowDuplicate: false
       },
-      tags: []
+      tags: [],
+      audio: {
+        "url": `http://dict.youdao.com/dictvoice?type=2&audio=${input}`,
+        "filename": `savetoanki_youdao+${input}.mp3`,
+        "fields": [
+          "Input"
+        ]
+      }
     }
   }
   const result = await invoke('addNote', 6, params);
@@ -125,9 +132,10 @@ async function addNote(input, output, pron, def, ex, name = config.defaultDeckNa
 function addToAnkiBtnHandler() {
   const wordIn = document.querySelectorAll("#input-wrap > div.text-dummy")[0].textContent;
   const wordOut = document.querySelectorAll("div.frame > div.page.tlid-homepage.homepage.translate-text > div.homepage-content-wrap > div.tlid-source-target.main-header > div.source-target-row > div.tlid-results-container.results-container > div.tlid-result.result-dict-wrapper > div.result.tlid-copy-target > div.text-wrap.tlid-copy-target > div > span.tlid-translation.translation > span")[0].textContent;
-  const pronunciation = document.querySelectorAll("div.frame > div.page.tlid-homepage.homepage.translate-text > div.homepage-content-wrap > div.tlid-source-target.main-header > div.source-target-row > div.tlid-input.input.has-transliteration > div.source-wrap > div > div > div.tlid-source-transliteration-container.source-transliteration-container.transliteration-container > div.tlid-transliteration-content.transliteration-content.full")[0].textContent;
+  const _pronunciation = document.querySelectorAll("div.frame > div.page.tlid-homepage.homepage.translate-text > div.homepage-content-wrap > div.tlid-source-target.main-header > div.source-target-row > div.tlid-input.input.has-transliteration > div.source-wrap > div > div > div.tlid-source-transliteration-container.source-transliteration-container.transliteration-container > div.tlid-transliteration-content.transliteration-content.full")[0];
   const _definition = document.querySelectorAll("div.frame > div.page.tlid-homepage.homepage.translate-text > div.homepage-content-wrap > div.tlid-result-view.cllist > div.gt-lc.gt-lc-mobile > div.gt-cc > div.gt-cc-r > div > div.gt-cd.gt-cd-mmd > div.gt-cd-c")[0];
   const _example = document.querySelectorAll("div.frame > div.page.tlid-homepage.homepage.translate-text > div.homepage-content-wrap > div.tlid-result-view.cllist > div.gt-lc.gt-lc-mobile > div.gt-cc > div.gt-cc-r > div > div.gt-cd.gt-cd-mex > div.gt-cd-c > div.gt-ex-info > div.gt-ex-top > div")[0];
+  const pronunciation = _pronunciation ? _pronunciation.textContent : "No Pronunciation";
   const definition = _definition ? _definition.innerHTML : "No Definition";
   const example = _example ? _example.textContent : "No Example";
   console.log(`Got word "${wordIn}" -> "${wordOut}"`);
