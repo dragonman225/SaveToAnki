@@ -9,7 +9,7 @@ const Config = {
   destinationLang: "zh-TW",
   defaultDeckName: "GoogleTranslate",
   modelFields: ["Input", "Output", "Pronunciation", "Definition", "Example"],
-  synonymEnabled: true,
+  synonymEnabled: false,
   cardTemplates: [
     {
       "Front":
@@ -78,7 +78,7 @@ const Config = {
    \
    .gt-def-num {\
     position: absolute;\
-    left: 45px;\
+    left: 25px;\
     border: 1px solid white;\
     border-radius: 100%;\
     width: 18px;\

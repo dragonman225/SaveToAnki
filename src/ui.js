@@ -11,7 +11,7 @@ var UI = (function (ui) {
   ui.createButton = function (handler) {
     let btn = document.createElement('div');
     let textWrap = document.createElement('div');
-    let text = document.createTextNode('Add to Anki');
+    let text = document.createTextNode('Anki Add');
 
     btn.classList.add("tlid-input-button", "input-button", "header-button");
     textWrap.classList.add("text");
@@ -26,4 +26,3 @@ var UI = (function (ui) {
   return ui;
 
 }(UI || {}));
-

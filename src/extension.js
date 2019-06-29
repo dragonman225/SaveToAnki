@@ -1,4 +1,4 @@
-/** 
+/**
  * SaveToAnki by dragonman225
  */
 
@@ -140,14 +140,14 @@ function addToAnkiBtnHandler() {
  * Inject "Add To Anki" button to Google Translate toolbar
  */
 function initUI() {
-  const injectRoot = document.querySelectorAll("div.input-button-container > div.tlid-input-button-container")[0];
+  const injectRoot = document.querySelectorAll("div.source-wrap > div.input-full-height-wrapper.tlid-input-full-height-wrapper")[0];
   const button = ui.createButton(addToAnkiBtnHandler);
   injectRoot.appendChild(button);
 }
 
 /**
  * Invoke "lookUpGoogleTranslate" with keyboard.
- * @param {Event} e 
+ * @param {Event} e
  */
 function onKeyDown(e) {
   if (config.shortcutEnabled &&
